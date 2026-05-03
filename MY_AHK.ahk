@@ -27,23 +27,32 @@ if !WinWait("ahk_exe AmneziaVPN.exe", , 10) {
 WinActivate("ahk_exe AmneziaVPN.exe")
 WinWaitActive("ahk_exe AmneziaVPN.exe")
 
+WinMove(0, 0, , , "ahk_exe AmneziaVPN.exe")
+
 ; Узнаем точные размеры окна Amnezia, чтобы искать только внутри него
 WinGetPos(&WinX, &WinY, &WinWidth, &WinHeight, "ahk_exe AmneziaVPN.exe")
 
 Loop 150 {
     ; Ищем ОБРЕЗАННУЮ картинку отключенного состояния (допуск *60 обычно оптимален)
-    if ImageSearch(&FoundX, &FoundY, 0, 0, WinWidth, WinHeight, "*60 AmneziaVPN-disconnect.png") {
+    if ImageSearch(&FoundX, &FoundY, 0, 0, WinWidth, WinHeight, "*60 AmneziaVPN-disconnect-100.png") {
         Sleep 200
         ; Кликаем точно по найденной картинке, сместив клик чуть в центр (+10 пикселей)
         Click(FoundX + 10, FoundY + 5) 
         break
     }
-    
-    ; Ищем ОБРЕЗАННУЮ картинку подключенного состояния
-    if ImageSearch(&FoundX, &FoundY, 0, 0, WinWidth, WinHeight, "*60 AmneziaVPN-connect.png") {
+    if ImageSearch(&FoundX, &FoundY, 0, 0, WinWidth, WinHeight, "*60 AmneziaVPN-disconnect-125.png") {
+        Sleep 200
+        ; Кликаем точно по найденной картинке, сместив клик чуть в центр (+10 пикселей)
+        Click(FoundX + 10, FoundY + 5) 
         break
     }
-    
+    ; Ищем ОБРЕЗАННУЮ картинку подключенного состояния
+    if ImageSearch(&FoundX, &FoundY, 0, 0, WinWidth, WinHeight, "*60 AmneziaVPN-connect-100.png") {
+        break
+    }
+	    if ImageSearch(&FoundX, &FoundY, 0, 0, WinWidth, WinHeight, "*60 AmneziaVPN-connect-125.png") {
+        break
+    }
     Sleep 100
 }
 
@@ -198,21 +207,34 @@ EncodeDecodeURI(str) {
     Loop 150 { 
         
         ; Ищем кнопку №1
-        if ImageSearch(&FoundX, &FoundY, 0, 0, A_ScreenWidth, A_ScreenHeight, "Total Commander №1.png") {
+        if ImageSearch(&FoundX, &FoundY, 0, 0, A_ScreenWidth, A_ScreenHeight, "Total Commander №1-100.png") {
             WinActivate("ahk_exe TOTALCMD64.EXE") ; Активируем окно на всякий случай
             Send("1")                             ; Нажимаем 1
             break
         }
-        
+        if ImageSearch(&FoundX, &FoundY, 0, 0, A_ScreenWidth, A_ScreenHeight, "Total Commander №1-125.png") {
+            WinActivate("ahk_exe TOTALCMD64.EXE") ; Активируем окно на всякий случай
+            Send("1")                             ; Нажимаем 1
+            break
+        }
         ; Ищем кнопку №2
-        if ImageSearch(&FoundX, &FoundY, 0, 0, A_ScreenWidth, A_ScreenHeight, "Total Commander №2.png") {
+        if ImageSearch(&FoundX, &FoundY, 0, 0, A_ScreenWidth, A_ScreenHeight, "Total Commander №2-100.png") {
             WinActivate("ahk_exe TOTALCMD64.EXE")
             Send("2")                             ; Нажимаем 2
             break
         }
-        
+        if ImageSearch(&FoundX, &FoundY, 0, 0, A_ScreenWidth, A_ScreenHeight, "Total Commander №2-125.png") {
+            WinActivate("ahk_exe TOTALCMD64.EXE")
+            Send("2")                             ; Нажимаем 2
+            break
+        }
         ; Ищем кнопку №3
-        if ImageSearch(&FoundX, &FoundY, 0, 0, A_ScreenWidth, A_ScreenHeight, "Total Commander №3.png") {
+        if ImageSearch(&FoundX, &FoundY, 0, 0, A_ScreenWidth, A_ScreenHeight, "Total Commander №3-100.png") {
+            WinActivate("ahk_exe TOTALCMD64.EXE")
+            Send("3")                             ; Нажимаем 3
+            break
+        }
+		if ImageSearch(&FoundX, &FoundY, 0, 0, A_ScreenWidth, A_ScreenHeight, "Total Commander №3-125.png") {
             WinActivate("ahk_exe TOTALCMD64.EXE")
             Send("3")                             ; Нажимаем 3
             break
